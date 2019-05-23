@@ -1,19 +1,15 @@
 provider "aws" {
-region = "ap-south-1"
+region = "us-east-1"
 #access_key = "$(var.AWS_ACCESS_KEY_ID)"
 #secret_key = "$(var.AWS_SECRET_ACCESS_KEY)"
 }
 
 resource "aws_instance" "linuxnix" {
 count = 1
-ami = "ami-007d5db58754fa284"
+ami = "ami-0565af6e282977273"
 instance_type = "t2.micro"
-key_name = "terra"
+key_name = "AWS2"
 tags {
-Name = "linuxnix-${count.index+1}"
+Name = "Demo301"
 }
-}
-
-output "ip" {
-value = "${aws_instance.linuxnix.*.public_ip}"
 }
