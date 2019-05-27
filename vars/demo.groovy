@@ -67,7 +67,7 @@ sh 'scp /var/lib/jenkins/workspace/${JOB_NAME}/${BUILD_NUMBER}/com/javawebtutor/
 sh 'ssh ubuntu@13.89.226.204  \'sudo mv /home/ubuntu/LoginWebApp-1.0*.war /opt/tomcat/webapps/LoginWebApp.war\''
 }
         } catch(error) {
-		mail body: "${error}", subject: 'Build failure', to: 'mohit.kumar@mindtree.com'
+		mail body: "${error}", subject: 'Build failure', to: params.email
 		}
 }
 }
