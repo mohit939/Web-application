@@ -64,7 +64,7 @@ rtDownload (
 
 stage ('Application Deployment'){
 sh 'scp /var/lib/jenkins/workspace/${JOB_NAME}/${BUILD_NUMBER}/com/javawebtutor/LoginWebApp/1.0-SNAPSHOT/LoginWebApp-1.0*.war ubuntu@13.89.226.204:/home/ubuntu/'
-sh 'ssh ubuntu@13.89.226.204  \'sudo mv /home/ubuntu/LoginWebApp-1.0*.war /opt/tomcat/webapps/LoginWebApp.war\''
+sh 'ssh ubuntu@'+params.ServerUrl+'  \'sudo mv /home/ubuntu/LoginWebApp-1.0*.war /opt/tomcat/webapps/LoginWebApp.war\''
 }
         } catch(error) {
 		mail body: "${error}", subject: 'Build failure', to: params.email
