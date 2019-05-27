@@ -2,7 +2,7 @@ def call(Map params) {
 node('master') {
      try{
     stage('SCM') {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mohit939/Web-application.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: params.branch ]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: params.giturl ]]])
     }
 	
 	stage('SonarQube analysis') {
@@ -32,7 +32,7 @@ node('master') {
  
     rtMavenDeployer (
     id: 'deployer-unique-id',
-    serverId: 'Jfrog',
+    serverId: params.artifactid,
     releaseRepo: 'release/${BUILD_NUMBER}',
     snapshotRepo: "snapshot/${BUILD_NUMBER}"
 )
@@ -49,13 +49,13 @@ rtMavenRun (
 } 
  stage('Artifact Download') {
 rtDownload (
-    serverId: "Jfrog",
+    serverId: params.artifactid,
     spec:
         """{
           "files": [
             {
               "pattern": "snapshot/${BUILD_NUMBER}/com/javawebtutor/LoginWebApp/1.0-SNAPSHOT/LoginWebApp-1.0*.war",
-              "target": "/var/lib/jenkins/workspace/Project301/"
+              "target": "/var/lib/jenkins/workspace/${JOB_NAME}/"
             }
          ]
         }"""
@@ -63,7 +63,7 @@ rtDownload (
 }
 
 stage ('Application Deployment'){
-sh 'scp /var/lib/jenkins/workspace/Project301/${BUILD_NUMBER}/com/javawebtutor/LoginWebApp/1.0-SNAPSHOT/LoginWebApp-1.0*.war ubuntu@13.89.226.204:/home/ubuntu/'
+sh 'scp /var/lib/jenkins/workspace/${JOB_NAME}/${BUILD_NUMBER}/com/javawebtutor/LoginWebApp/1.0-SNAPSHOT/LoginWebApp-1.0*.war ubuntu@13.89.226.204:/home/ubuntu/'
 sh 'ssh ubuntu@13.89.226.204  \'sudo mv /home/ubuntu/LoginWebApp-1.0*.war /opt/tomcat/webapps/LoginWebApp.war\''
 }
         } catch(error) {
