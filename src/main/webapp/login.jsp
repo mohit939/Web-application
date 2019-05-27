@@ -6,11 +6,7 @@
  String password = request.getParameter("password"); 
  
  Class.forName ("com.mysql.jdbc.Driver"); 
- String url ="jdbc:mysql://megh.mysql.database.azure.com:3306/demo?useSSL=true&requireSSL=false";
- Connection con = DriverManager.getConnection(url, "ubuntu@megh", "Qwerty@12345");
- 
- 
- 
+ Connection con = DriverManager.getConnection("jdbc:mysql://172.17.0.4:3306/sample", "root", "Qwerty@12345");
  Statement st = con.createStatement(); 
  ResultSet rs; 
  rs = st.executeQuery("select * from USER where username='" + userName + "' and password='" + password + "'");
