@@ -64,7 +64,7 @@ rtDownload (
 
 stage ('Application Deployment'){
 sh 'ssh ubuntu@'+params.ServerUrl+' \'sudo rm -rf /home/ubuntu/*.war\''
-sh 'scp /var/lib/jenkins/workspace/${JOB_NAME}/${BUILD_NUMBER}/com/javawebtutor/LoginWebApp/1.0-SNAPSHOT/LoginWebApp-1.0*.war ubuntu@13.89.226.204:/home/ubuntu/'
+sh 'scp /var/lib/jenkins/workspace/${JOB_NAME}/${BUILD_NUMBER}/com/javawebtutor/LoginWebApp/1.0-SNAPSHOT/LoginWebApp-1.0*.war ubuntu@'+params.ServerUrl+':/home/ubuntu/LoginWebApp.war'
 sh 'ssh ubuntu@'+params.ServerUrl+'  \'sudo cp /home/ubuntu/LoginWebApp-1.0*.war /opt/tomcat/webapps/LoginWebApp.war\''
 }
         } catch(error) {
