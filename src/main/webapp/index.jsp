@@ -9,7 +9,7 @@
 <form method="post" action="login.jsp"> 
 <center> 
 	<table border="0" width="30%" cellpadding="3">
-	<thead> <tr> <th colspan="2">Login Page1</th> </tr> </thead> 
+	<thead> <tr> <th colspan="2">Login Page</th> </tr> </thead> 
 	<tbody> 
 	<tr> <td>Username</td><td><input type="text" name="userName" value="" /></td> </tr> 
 	<tr> <td>Password</td> <td><input type="password" name="password" value="" /></td></tr> 
